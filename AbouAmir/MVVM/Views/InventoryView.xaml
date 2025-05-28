@@ -1,0 +1,496 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AbouAmir.MVVM.Views.InventoryView"
+             NavigationPage.HasNavigationBar="False"
+             >
+    <ContentPage.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#FF0099" Offset="0.0" />
+            <GradientStop Color="#493240" Offset="0.25" />
+            <GradientStop Color="#F25C78" Offset="0.5" />
+            <GradientStop Color="#D9376E" Offset="0.75" />
+            <GradientStop Color="#8D2B97" Offset="1.0" />
+        </LinearGradientBrush>
+    </ContentPage.Background>
+
+    <Grid RowDefinitions=".1*,.1*,.7*,.1*">
+
+        <!--#region Header -->
+        <Border StrokeShape="RoundRectangle 15" Grid.Row="0" Margin="0,0,0,0" HeightRequest="50">
+            <!--#region Border styling -->
+            <Border.Stroke>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                    <GradientStop Color="#8338EC" Offset="0.0" />
+                    <GradientStop Color="#06FFA5" Offset="1.0" />
+                </LinearGradientBrush>
+            </Border.Stroke>
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#FFFFFF" Offset="0.0" />
+                    <GradientStop Color="#F0F8FF" Offset="1.0" />
+                </LinearGradientBrush>
+            </Border.Background>
+            <Border.Shadow>
+                <Shadow Brush="#8338EC"
+                        Offset="0,4"
+                        Radius="12"
+                        Opacity="0.3"/>
+            </Border.Shadow>
+            <!--#endregion-->
+
+
+        </Border>
+        <HorizontalStackLayout VerticalOptions="Center" Grid.Row="0">
+            <Border HeightRequest="70"
+                    WidthRequest="70" Margin="10,5,0,5" StrokeThickness="2" >
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="50"/>
+                </Border.StrokeShape>
+                <Border.Stroke>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#FF0099" Offset="0.0" />
+                        <GradientStop Color="#8D2B97" Offset="0.5" />
+                        <GradientStop Color="#493240" Offset="1.0" />
+                    </LinearGradientBrush>
+                </Border.Stroke>
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#FFFFFF" Offset="0.0" />
+                        <GradientStop Color="#F8F8FF" Offset="0.3" />
+                        <GradientStop Color="#E6E6FA" Offset="0.7" />
+                        <GradientStop Color="#DDA0DD" Offset="1.0" />
+                    </LinearGradientBrush>
+                </Border.Background>
+                <Border.Shadow>
+                    <Shadow Brush="#FF0099"
+                            Offset="0,4"
+                            Radius="20"
+                            Opacity="0.3"/>
+                </Border.Shadow>
+                <Image Source="dotnet_bot.png"
+                       Aspect="AspectFill"/>
+            </Border>
+            <Label
+                Text="Hello, Abou Amir"
+                FontAttributes="Bold"
+                FontSize="20"
+                TextColor="Black"
+                Margin="30,20,0,5"
+                FontFamily="Inter"
+                VerticalTextAlignment="Center"
+                VerticalOptions="Center"
+                HorizontalOptions="Start">
+                <Label.Shadow>
+                    <Shadow Brush="#FF0099"
+                            Offset="0,0"
+                            Radius="15"
+                            Opacity="0.8"/>
+                </Label.Shadow>
+            </Label>
+
+        </HorizontalStackLayout>
+
+        <!--#endregion-->
+
+
+        <!--#region Category NavBar -->
+
+        <FlexLayout BindableLayout.ItemsSource="{Binding Categories}"
+                    Direction="Row"
+                    JustifyContent="SpaceEvenly"
+                    Margin="5,0,5,0"
+                    Grid.Row="1"
+                    >
+            <BindableLayout.ItemTemplate>
+                <DataTemplate>
+                    <!-- Glassmorphism Card with Gradient Border -->
+                    <Border HeightRequest="60"
+                            WidthRequest="100"
+                            VerticalOptions="Center"
+                            Margin="5"
+                            StrokeThickness="1">
+
+                        <!-- Gradient Border Effect -->
+                        <Border.Stroke>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                <GradientStop Color="#FF0099" Offset="0.0" />
+                                <GradientStop Color="#8D2B97" Offset="0.5" />
+                                <GradientStop Color="#493240" Offset="1.0" />
+                            </LinearGradientBrush>
+                        </Border.Stroke>
+
+                        <!-- Glassmorphism Background -->
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                <GradientStop Color="#FFFFFF" Offset="0.0" />
+                                <GradientStop Color="#F8F8FF" Offset="0.3" />
+                                <GradientStop Color="#E6E6FA" Offset="0.7" />
+                                <GradientStop Color="#DDA0DD" Offset="1.0" />
+                            </LinearGradientBrush>
+                        </Border.Background>
+
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="20"/>
+                        </Border.StrokeShape>
+
+                        <!-- Enhanced Shadow for Depth -->
+                        <Border.Shadow>
+                            <Shadow Brush="#FF0099"
+                                    Offset="0,4"
+                                    Radius="20"
+                                    Opacity="0.3"/>
+                        </Border.Shadow>
+
+                        <!-- Modern Content Layout -->
+                        <HorizontalStackLayout HorizontalOptions="Start"
+                                               VerticalOptions="Center"
+                                               >
+
+                            <!-- Icon Container with Glow -->
+                            <Frame BackgroundColor="Transparent"
+                                   HasShadow="False"
+                                   Padding="0"
+                                   HeightRequest="30"
+                                   WidthRequest="30">
+                                <Frame.Shadow>
+                                    <Shadow Brush="#8D2B97"
+                                            Offset="0,0"
+                                            Radius="10"
+                                            Opacity="0.6"/>
+                                </Frame.Shadow>
+                                <Image Source="{Binding ImageUrl}"
+                                       HeightRequest="30"
+                                       WidthRequest="30"
+                                       Aspect="AspectFit"
+                                       IsAnimationPlaying="True"
+                                       VerticalOptions="Center"/>
+                            </Frame>
+
+                            <!-- Modern Typography -->
+                            <Label Text="{Binding Name}"
+                                   FontSize="16"
+                                   TextColor="#2D1B69"
+                                   FontAttributes="Bold"
+                                   VerticalOptions="Center"
+                                   LineBreakMode="WordWrap"
+                                   FontFamily="Inter"/>
+                        </HorizontalStackLayout>
+
+                        <!-- Enhanced Gesture Recognizer -->
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Choose}"
+                                                  CommandParameter="{Binding Name}"/>
+                        </Border.GestureRecognizers>
+                    </Border>
+                </DataTemplate>
+            </BindableLayout.ItemTemplate>
+        </FlexLayout>
+        <!--#endregion-->
+        <!--#region Main Screen -->
+
+        <CollectionView ItemsSource="{Binding Products}"
+                        Grid.Row="2"
+                        x:Name="showedItems">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Border StrokeShape="RoundRectangle 25"
+                            StrokeThickness="2"
+                            HeightRequest="120"
+                            WidthRequest="190"
+                            Margin="5"
+                            >
+                        <Grid ColumnDefinitions=".7*,.3*" RowDefinitions=".7*,.3*">
+                            <HorizontalStackLayout Grid.Column="0" Grid.Row="0" VerticalOptions="Center">
+                                <Border  StrokeShape="RoundRectangle 25"
+                                        StrokeThickness="2"
+                                        HeightRequest="50"
+                                        WidthRequest="50"
+                                        Margin="10,0,0,0">
+                                    <Image Source="{Binding ImageUrl}"
+                                           HeightRequest="50"
+                                           WidthRequest="50"
+                                           Aspect="AspectFill"
+                                           />
+                                    <!--#region Border styling -->
+                                    <Border.Stroke>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                            <GradientStop Color="#8338EC" Offset="0.0" />
+                                            <GradientStop Color="#06FFA5" Offset="1.0" />
+                                        </LinearGradientBrush>
+                                    </Border.Stroke>
+                                    <Border.Background>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                            <GradientStop Color="#FFFFFF" Offset="0.0" />
+                                            <GradientStop Color="#F0F8FF" Offset="1.0" />
+                                        </LinearGradientBrush>
+                                    </Border.Background>
+                                    <Border.Shadow>
+                                        <Shadow Brush="#8338EC"
+                                                Offset="0,4"
+                                                Radius="12"
+                                                Opacity="0.3"/>
+                                    </Border.Shadow>
+                                    <!--#endregion-->
+                                </Border>
+
+                                <Label Text="{Binding Name}"
+                                       FontSize="16"
+                                       FontAttributes="Bold"
+                                       VerticalOptions="Center"
+                                       Margin="5,0,0,0"
+                                       TextColor="#2D1B69"
+                                       LineBreakMode="WordWrap"
+                                       FontFamily="Inter"/>
+                            </HorizontalStackLayout>
+                            <HorizontalStackLayout Grid.ColumnSpan="2" Grid.Row="1" VerticalOptions="Center" Spacing="100">
+                                <Label  Text="{Binding Price, StringFormat='{0:c}'}"
+                                       FontSize="16"
+                                       FontAttributes="Bold"
+                                       VerticalOptions="Center"
+                                       Margin="10,0,0,0"
+                                       TextColor="#2D1B69"
+                                       FontFamily="Inter"/>
+                                <Label Text="{Binding Stock}"
+                                       FontSize="16"
+                                       FontAttributes="Bold"
+                                       VerticalOptions="Center"
+                                       TextColor="#2D1B69"
+                                       FontFamily="Inter"/>
+                            </HorizontalStackLayout>
+                        </Grid>
+                        <!--#region Border styling -->
+                        <Border.Stroke>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                <GradientStop Color="#8338EC" Offset="0.0" />
+                                <GradientStop Color="#06FFA5" Offset="1.0" />
+                            </LinearGradientBrush>
+                        </Border.Stroke>
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                <GradientStop Color="#FFFFFF" Offset="0.0" />
+                                <GradientStop Color="#F0F8FF" Offset="1.0" />
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <Border.Shadow>
+                            <Shadow Brush="#8338EC"
+                                    Offset="0,4"
+                                    Radius="12"
+                                    Opacity="0.3"/>
+                        </Border.Shadow>
+                        <!--#endregion-->
+
+                    </Border>
+
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+            <!-- Enhanced Grid Layout -->
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout Orientation="Vertical"
+                                 Span="{OnPlatform iOS=2, Android=2, WinUI=4}"
+                                 HorizontalItemSpacing="3"
+                                 VerticalItemSpacing="5"/>
+            </CollectionView.ItemsLayout>
+
+        </CollectionView>
+        <Border Grid.Row="2"
+                StrokeShape="RoundRectangle 15"
+                StrokeThickness="2"
+                HeightRequest="70"
+                WidthRequest="70"
+                HorizontalOptions="End"
+                VerticalOptions="End"
+                Margin="0,0,30,40"
+                >
+            <Image Source="add.gif"
+                   HeightRequest="70"
+                   WidthRequest="70"
+                   Aspect="AspectFill"
+                   IsAnimationPlaying="True" />
+            <!--#region Border styling -->
+            <Border.Stroke>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                    <GradientStop Color="#8338EC" Offset="0.0" />
+                    <GradientStop Color="#06FFA5" Offset="1.0" />
+                </LinearGradientBrush>
+            </Border.Stroke>
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#FFFFFF" Offset="0.0" />
+                    <GradientStop Color="#F0F8FF" Offset="1.0" />
+                </LinearGradientBrush>
+            </Border.Background>
+            <Border.Shadow>
+                <Shadow Brush="#8338EC"
+                        Offset="0,4"
+                        Radius="12"
+                        Opacity="0.3"/>
+            </Border.Shadow>
+            <!--#endregion-->
+            <Border.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding }"/>
+            </Border.GestureRecognizers>
+        </Border>
+        <!--#endregion-->
+
+
+        <!--#region BottomNavbar -->
+        <Border StrokeShape="RoundRectangle 25" Grid.Row="3" Margin="0,20,0,0" HeightRequest="100">
+            <HorizontalStackLayout  Spacing="25" Margin="0,0,0,10" HorizontalOptions="Center">
+                <Border StrokeShape="RoundRectangle 25"
+                        StrokeThickness="2"
+                        HeightRequest="50"
+                        WidthRequest="50"
+                        Margin="0,0,0,0">
+                    <Image Source="cart.gif"
+                           HeightRequest="50"
+                           WidthRequest="50"
+                           Aspect="AspectFill"
+                           IsAnimationPlaying="True"/>
+                    <!--#region Border styling -->
+                    <Border.Stroke>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                            <GradientStop Color="#8338EC" Offset="0.0" />
+                            <GradientStop Color="#06FFA5" Offset="1.0" />
+                        </LinearGradientBrush>
+                    </Border.Stroke>
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                            <GradientStop Color="#FFFFFF" Offset="0.0" />
+                            <GradientStop Color="#F0F8FF" Offset="1.0" />
+                        </LinearGradientBrush>
+                    </Border.Background>
+                    <Border.Shadow>
+                        <Shadow Brush="#8338EC"
+                                Offset="0,4"
+                                Radius="12"
+                                Opacity="0.3"/>
+                    </Border.Shadow>
+                    <!--#endregion-->
+
+                </Border>
+                <Border StrokeShape="RoundRectangle 25"
+                        StrokeThickness="2"
+                        HeightRequest="50"
+                        WidthRequest="50"
+                        Margin="10,0,0,0">
+                    <Image Source="transfer.gif"
+                           HeightRequest="50"
+                           WidthRequest="50"
+                           Aspect="AspectFill"
+                           IsAnimationPlaying="True"/>
+                    <!--#region Border styling -->
+                    <Border.Stroke>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                            <GradientStop Color="#8338EC" Offset="0.0" />
+                            <GradientStop Color="#06FFA5" Offset="1.0" />
+                        </LinearGradientBrush>
+                    </Border.Stroke>
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                            <GradientStop Color="#FFFFFF" Offset="0.0" />
+                            <GradientStop Color="#F0F8FF" Offset="1.0" />
+                        </LinearGradientBrush>
+                    </Border.Background>
+                    <Border.Shadow>
+                        <Shadow Brush="#8338EC"
+                                Offset="0,4"
+                                Radius="12"
+                                Opacity="0.3"/>
+                    </Border.Shadow>
+                    <!--#endregion-->
+
+                </Border>
+                <Border StrokeShape="RoundRectangle 25"
+                        StrokeThickness="2"
+                        HeightRequest="50"
+                        WidthRequest="50"
+                        Margin="10,0,0,0">
+                    <Image Source="sell.gif"
+                           HeightRequest="50"
+                           WidthRequest="50"
+                           Aspect="AspectFill"
+                           IsAnimationPlaying="True"/>
+                    <!--#region Border styling -->
+                    <Border.Stroke>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                            <GradientStop Color="#8338EC" Offset="0.0" />
+                            <GradientStop Color="#06FFA5" Offset="1.0" />
+                        </LinearGradientBrush>
+                    </Border.Stroke>
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                            <GradientStop Color="#FFFFFF" Offset="0.0" />
+                            <GradientStop Color="#F0F8FF" Offset="1.0" />
+                        </LinearGradientBrush>
+                    </Border.Background>
+                    <Border.Shadow>
+                        <Shadow Brush="#8338EC"
+                                Offset="0,4"
+                                Radius="12"
+                                Opacity="0.3"/>
+                    </Border.Shadow>
+                    <!--#endregion-->
+
+                </Border>
+                <Border StrokeShape="RoundRectangle 25"
+                        StrokeThickness="2"
+                        HeightRequest="50"
+                        WidthRequest="50"
+                        Margin="10,0,0,0">
+                    <Image Source="wallet.gif"
+                           HeightRequest="50"
+                           WidthRequest="50"
+                           Aspect="AspectFill"
+                           IsAnimationPlaying="True"/>
+                    <!--#region Border styling -->
+                    <Border.Stroke>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                            <GradientStop Color="#8338EC" Offset="0.0" />
+                            <GradientStop Color="#06FFA5" Offset="1.0" />
+                        </LinearGradientBrush>
+                    </Border.Stroke>
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                            <GradientStop Color="#FFFFFF" Offset="0.0" />
+                            <GradientStop Color="#F0F8FF" Offset="1.0" />
+                        </LinearGradientBrush>
+                    </Border.Background>
+                    <Border.Shadow>
+                        <Shadow Brush="#8338EC"
+                                Offset="0,4"
+                                Radius="12"
+                                Opacity="0.3"/>
+                    </Border.Shadow>
+                    <!--#endregion-->
+
+                </Border>
+            </HorizontalStackLayout>
+            <!--#region Border styling -->
+            <Border.Stroke>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                    <GradientStop Color="#8338EC" Offset="0.0" />
+                    <GradientStop Color="#06FFA5" Offset="1.0" />
+                </LinearGradientBrush>
+            </Border.Stroke>
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#FFFFFF" Offset="0.0" />
+                    <GradientStop Color="#F0F8FF" Offset="1.0" />
+                </LinearGradientBrush>
+            </Border.Background>
+            <Border.Shadow>
+                <Shadow Brush="#8338EC"
+                        Offset="0,4"
+                        Radius="12"
+                        Opacity="0.3"/>
+            </Border.Shadow>
+            <!--#endregion-->
+        </Border>
+        <!--#endregion-->
+
+
+
+    </Grid>
+</ContentPage>
