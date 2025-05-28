@@ -189,7 +189,7 @@
         <!--#endregion-->
         <!--#region Main Screen -->
 
-        <CollectionView ItemsSource="{Binding Products}"
+        <CollectionView ItemsSource="{Binding filteredProducts}"
                         Grid.Row="2"
                         x:Name="showedItems">
             <CollectionView.ItemTemplate>
@@ -329,7 +329,7 @@
             </Border.Shadow>
             <!--#endregion-->
             <Border.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding }"/>
+                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
             </Border.GestureRecognizers>
         </Border>
         <!--#endregion-->

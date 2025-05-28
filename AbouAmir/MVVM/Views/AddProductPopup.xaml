@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    x:Class="AbouAmir.Views.ProductPopup"
+    Size="300,500">
+
+    <VerticalStackLayout Padding="20" Spacing="10">
+        <Entry x:Name="NameEntry" Placeholder="Product Name" />
+        <Entry x:Name="PriceEntry" Placeholder="Price" Keyboard="Numeric" />
+        <Entry x:Name="StockEntry" Placeholder="Stock" Keyboard="Numeric" />
+
+        <Image x:Name="PreviewImage" HeightRequest="120" />
+        <Button Text="Take Photo" Clicked="OnTakePhotoClicked" />
+
+        <HorizontalStackLayout Spacing="10">
+            <Button Text="Cancel" BackgroundColor="LightGray" Clicked="OnCancelClicked"/>
+            <Button Text="OK" BackgroundColor="LightGreen" Clicked="OnOkClicked"/>
+        </HorizontalStackLayout>
+    </VerticalStackLayout>
+</toolkit:Popup>

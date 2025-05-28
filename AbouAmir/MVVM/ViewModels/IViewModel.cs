@@ -1,4 +1,7 @@
 ﻿using AbouAmir.MVVM.Models;
+using AbouAmir.Services;
+using AbouAmir.Views;
+using CommunityToolkit.Maui.Views;
 using PropertyChanged;
 using System;
 using System.Collections.Generic;
@@ -14,13 +17,16 @@ namespace AbouAmir.MVVM.ViewModels
     [AddINotifyPropertyChangedInterface]
     public class IViewModel
     {
+        private static IViewModel? _instance;
+
+        public static IViewModel Instance => _instance ??= new IViewModel();
+
+        private readonly FirestoreService _firestoreService = new();
+        
         public IViewModel()
-        {   
-            foreach(var product in Dairy) CurrentInventory.Add(product);
-            foreach (var product in Snacks) CurrentInventory.Add(product);
-            foreach (var product in Bakery) CurrentInventory.Add(product);
-            foreach (var product in Beverages) CurrentInventory.Add(product);
-            Products = new ObservableCollection<Product>(Snacks);
+        {
+            _ = LoadProductsFromFirebaseAsync(); // Load on startup
+            filteredProducts = new ObservableCollection<Product>(Products.Where(x => x.Category == "Snacks"));
         }
 
         public ObservableCollection<Category> Categories { get; set; } = [
@@ -29,34 +35,27 @@ namespace AbouAmir.MVVM.ViewModels
             new(){ Name = "Bakery", ImageUrl = "bread.gif" },
             new(){ Name = "Beverages", ImageUrl = "frappe.gif"},
             ];
-        public ObservableCollection<Product> CurrentInventory { get; set; } = [];
+      
 
         public ObservableCollection<Product> Products { get; set; } = [];
+        public ObservableCollection<Product> filteredProducts { get; set; } = [];
+        
 
-
-        #region Product Collections
-
-        public ObservableCollection<Product> Snacks { get; set; } = [
-           new Product { Name = "Chocolate Bar", Price = 2.50, Stock = 30, ImageUrl = "milk.gif", Category = "Snacks", DateAdded = DateTime.Now },
-
-            ];
-        public ObservableCollection<Product> Dairy { get; set; } = [
-              new Product { Name = "Milk", Price = 3.00, Stock = 20, ImageUrl = "", Category = "Dairy", DateAdded = DateTime.Now },
-             new Product { Name = "Butter", Price = 5.50, Stock = 12, ImageUrl = "", Category = "Dairy", DateAdded = DateTime.Now },
-            ];
-
-        public ObservableCollection<Product> Bakery { get; set; } =
-            [new Product { Name = "Bread Loaf", Price = 1.80, Stock = 15, ImageUrl = "", Category = "Bakery", DateAdded = DateTime.Now },
-        ];
-        public ObservableCollection<Product> Beverages { get; set; } = [
-            new Product { Name = "Coffee", Price = 2.00, Stock = 25, ImageUrl = "", Category = "Beverages", DateAdded = DateTime.Now },
-            new Product { Name = "Tea", Price = 1.50, Stock = 18, ImageUrl = "", Category = "Beverages", DateAdded = DateTime.Now }
-        ];
-
-        #endregion
 
 
         #region Commands
+
+        public async Task LoadProductsFromFirebaseAsync()
+        {
+            var productsFromFirebase = await _firestoreService.GetProducts();
+
+            Products.Clear();
+            foreach (var product in productsFromFirebase)
+            {
+                Products.Add(product);
+            }
+        }
+
         public ICommand Choose => new Command<string>(categoryName =>
         {
             if (string.IsNullOrEmpty(categoryName)) return;
@@ -64,34 +63,18 @@ namespace AbouAmir.MVVM.ViewModels
             var category = Categories?.FirstOrDefault(c => c.Name == categoryName);
             if (category == null) return;
 
-            ObservableCollection<Product> filteredProducts = [];
-            switch(category.Name)
-            {
-                case "Snacks":
-                    filteredProducts = Snacks;
-                    break;
-                case "Dairy":
-                    filteredProducts = Dairy;
-                    break;
-                case "Bakery":
-                    filteredProducts = Bakery;
-                    break;
-                case "Beverages":
-                    filteredProducts = Beverages;
-                    break;
-            }
+            filteredProducts.Clear();
 
-            Products.Clear();
-            foreach (var product in filteredProducts)
+            foreach (var product in Products.Where(x => x.Category == category.Name))
             {
-                Products.Add(product);
+                filteredProducts.Add(product);
             }
         });
 
-       
-    }
-    #endregion
+        #endregion
 
+
+    }
 
 }
 
