@@ -2,8 +2,12 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AbouAmir.MVVM.Views.InventoryView"
+             xmlns:convertors="clr-namespace:AbouAmir.Convertors"
              NavigationPage.HasNavigationBar="False"
              >
+    <ContentPage.Resources>
+        <convertors:PriceConvertor x:Key="PriceConvertor"/>
+    </ContentPage.Resources>
     <ContentPage.Background>
         <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
             <GradientStop Color="#FF0099" Offset="0.0" />
@@ -189,27 +193,30 @@
         <!--#endregion-->
         <!--#region Main Screen -->
 
-        <CollectionView ItemsSource="{Binding filteredProducts}"
-                        Grid.Row="2"
-                        x:Name="showedItems">
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Border StrokeShape="RoundRectangle 25"
-                            StrokeThickness="2"
-                            HeightRequest="120"
-                            WidthRequest="190"
-                            Margin="5"
+        <RefreshView  IsRefreshing="{Binding IsRefreshing}"
+                     Command="{Binding RefreshCommand}"
+                     Grid.Row="2">
+
+            <CollectionView ItemsSource="{Binding filteredProducts}"
+                            x:Name="showedItems"
                             >
-                        <Grid ColumnDefinitions=".7*,.3*" RowDefinitions=".7*,.3*">
-                            <HorizontalStackLayout Grid.Column="0" Grid.Row="0" VerticalOptions="Center">
-                                <Border  StrokeShape="RoundRectangle 25"
-                                        StrokeThickness="2"
-                                        HeightRequest="50"
-                                        WidthRequest="50"
-                                        Margin="10,0,0,0">
-                                    <Image Source="{Binding ImageUrl}"
-                                           HeightRequest="50"
-                                           WidthRequest="50"
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border StrokeShape="RoundRectangle 25"
+                                StrokeThickness="2"
+                                HeightRequest="120"
+                                WidthRequest="190"
+                                Margin="5"
+                                >
+                            <Grid ColumnDefinitions=".7*,.3*" RowDefinitions=".7*,.3*">
+                                <Border HeightRequest="35"
+                                        WidthRequest="35"
+                                        StrokeShape="RoundRectangle 25"
+                                        HorizontalOptions="End"
+                                        Grid.Row="0"
+                                        Grid.ColumnSpan="2"
+                                        Margin="0,0,5,20">
+                                    <Image Source="bin.png"
                                            Aspect="AspectFill"
                                            />
                                     <!--#region Border styling -->
@@ -232,68 +239,112 @@
                                                 Opacity="0.3"/>
                                     </Border.Shadow>
                                     <!--#endregion-->
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Delete}"
+                                                              CommandParameter="{Binding Name}"/>
+                                    </Border.GestureRecognizers>
                                 </Border>
+                                <HorizontalStackLayout Grid.Column="0" Grid.Row="0" VerticalOptions="Center">
+                                    <Border  StrokeShape="RoundRectangle 25"
+                                            StrokeThickness="2"
+                                            HeightRequest="50"
+                                            WidthRequest="50"
+                                            Margin="10,0,0,0">
+                                        <Image Source="{Binding ImageUrl}"
+                                               HeightRequest="50"
+                                               WidthRequest="50"
+                                               Aspect="AspectFill"
+                                               />
+                                        <!--#region Border styling -->
+                                        <Border.Stroke>
+                                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                                <GradientStop Color="#8338EC" Offset="0.0" />
+                                                <GradientStop Color="#06FFA5" Offset="1.0" />
+                                            </LinearGradientBrush>
+                                        </Border.Stroke>
+                                        <Border.Background>
+                                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                                <GradientStop Color="#FFFFFF" Offset="0.0" />
+                                                <GradientStop Color="#F0F8FF" Offset="1.0" />
+                                            </LinearGradientBrush>
+                                        </Border.Background>
+                                        <Border.Shadow>
+                                            <Shadow Brush="#8338EC"
+                                                    Offset="0,4"
+                                                    Radius="12"
+                                                    Opacity="0.3"/>
+                                        </Border.Shadow>
+                                        <!--#endregion-->
+                                    </Border>
 
-                                <Label Text="{Binding Name}"
-                                       FontSize="16"
-                                       FontAttributes="Bold"
-                                       VerticalOptions="Center"
-                                       Margin="5,0,0,0"
-                                       TextColor="#2D1B69"
-                                       LineBreakMode="WordWrap"
-                                       FontFamily="Inter"/>
-                            </HorizontalStackLayout>
-                            <HorizontalStackLayout Grid.ColumnSpan="2" Grid.Row="1" VerticalOptions="Center" Spacing="100">
-                                <Label  Text="{Binding Price, StringFormat='{0:c}'}"
-                                       FontSize="16"
-                                       FontAttributes="Bold"
-                                       VerticalOptions="Center"
-                                       Margin="10,0,0,0"
-                                       TextColor="#2D1B69"
-                                       FontFamily="Inter"/>
-                                <Label Text="{Binding Stock}"
-                                       FontSize="16"
-                                       FontAttributes="Bold"
-                                       VerticalOptions="Center"
-                                       TextColor="#2D1B69"
-                                       FontFamily="Inter"/>
-                            </HorizontalStackLayout>
-                        </Grid>
-                        <!--#region Border styling -->
-                        <Border.Stroke>
-                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                                <GradientStop Color="#8338EC" Offset="0.0" />
-                                <GradientStop Color="#06FFA5" Offset="1.0" />
-                            </LinearGradientBrush>
-                        </Border.Stroke>
-                        <Border.Background>
-                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                <GradientStop Color="#FFFFFF" Offset="0.0" />
-                                <GradientStop Color="#F0F8FF" Offset="1.0" />
-                            </LinearGradientBrush>
-                        </Border.Background>
-                        <Border.Shadow>
-                            <Shadow Brush="#8338EC"
-                                    Offset="0,4"
-                                    Radius="12"
-                                    Opacity="0.3"/>
-                        </Border.Shadow>
-                        <!--#endregion-->
+                                    <Label Text="{Binding Name}"
+                                           FontSize="16"
+                                           FontAttributes="Bold"
+                                           VerticalOptions="Center"
+                                           Margin="5,0,0,0"
+                                           TextColor="#2D1B69"
+                                           LineBreakMode="WordWrap"
+                                           FontFamily="Inter"/>
+                                </HorizontalStackLayout>
+                                <HorizontalStackLayout Grid.ColumnSpan="2" Grid.Row="1" VerticalOptions="Center">
+                                    <Label  Text="{Binding Price,Converter = {StaticResource PriceConvertor}}"
+                                           FontSize="16"
+                                           FontAttributes="Bold"
+                                           VerticalOptions="Center"
+                                           Margin="10,0,0,0"
+                                           TextColor="#2D1B69"
+                                           FontFamily="Inter"/>
+                                    <Label Text="{Binding Stock}"
+                                           FontSize="16"
+                                           FontAttributes="Bold"
+                                           VerticalOptions="Center"
+                                           LineBreakMode="WordWrap"
+                                           TextColor="#2D1B69"
+                                           FontFamily="Inter"
+                                           Margin="60,0,0,0"/>
+                                </HorizontalStackLayout>
+                            </Grid>
+                            <!--#region Border styling -->
+                            <Border.Stroke>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                    <GradientStop Color="#8338EC" Offset="0.0" />
+                                    <GradientStop Color="#06FFA5" Offset="1.0" />
+                                </LinearGradientBrush>
+                            </Border.Stroke>
+                            <Border.Background>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                    <GradientStop Color="#FFFFFF" Offset="0.0" />
+                                    <GradientStop Color="#F0F8FF" Offset="1.0" />
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <Border.Shadow>
+                                <Shadow Brush="#8338EC"
+                                        Offset="0,4"
+                                        Radius="12"
+                                        Opacity="0.3"/>
+                            </Border.Shadow>
+                            <!--#endregion-->
 
-                    </Border>
+                        </Border>
 
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
 
-            <!-- Enhanced Grid Layout -->
-            <CollectionView.ItemsLayout>
-                <GridItemsLayout Orientation="Vertical"
-                                 Span="{OnPlatform iOS=2, Android=2, WinUI=4}"
-                                 HorizontalItemSpacing="3"
-                                 VerticalItemSpacing="5"/>
-            </CollectionView.ItemsLayout>
+                <!-- Enhanced Grid Layout -->
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical"
+                                     Span="{OnPlatform iOS=2, Android=2, WinUI=4}"
+                                     HorizontalItemSpacing="3"
+                                     VerticalItemSpacing="5"/>
+                </CollectionView.ItemsLayout>
 
-        </CollectionView>
+            </CollectionView>
+
+        </RefreshView>
+
+
+
+        <!--#region addButton -->
         <Border Grid.Row="2"
                 StrokeShape="RoundRectangle 15"
                 StrokeThickness="2"
@@ -332,6 +383,9 @@
                 <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
             </Border.GestureRecognizers>
         </Border>
+
+        <!--#endregion-->
+
         <!--#endregion-->
 
 

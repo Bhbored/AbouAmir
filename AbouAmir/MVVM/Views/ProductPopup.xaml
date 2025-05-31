@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    x:Class="AbouAmir.Views.ProductPopup"
+    Size="300,530"
+    Color="Transparent">
+
+    <Border StrokeShape="RoundRectangle 15"
+            Padding="15"
+            BackgroundColor="Transparent"
+            HorizontalOptions="Center"
+            VerticalOptions="Center">
+
+        <!-- Border Stroke -->
+        <Border.Stroke>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                <GradientStop Color="#8338EC" Offset="0.0" />
+                <GradientStop Color="#06FFA5" Offset="1.0" />
+            </LinearGradientBrush>
+        </Border.Stroke>
+
+        <!-- Border Background -->
+        <Border.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="#FFFFFF" Offset="0.0" />
+                <GradientStop Color="#F0F8FF" Offset="1.0" />
+            </LinearGradientBrush>
+        </Border.Background>
+
+        <!-- Border Shadow -->
+        <Border.Shadow>
+            <Shadow Brush="#8338EC"
+                    Offset="0,4"
+                    Radius="12"
+                    Opacity="0.3" />
+        </Border.Shadow>
+
+        <!-- Popup Content -->
+        <VerticalStackLayout Spacing="12">
+            <Label Text="Add Product"
+                   FontSize="20"
+                   HorizontalOptions="Center"
+                   TextColor="#333">
+                <Label.Shadow>
+                    <Shadow Brush="#FF0099"
+                            Offset="0,0"
+                            Radius="15"
+                            Opacity="0.8" />
+                </Label.Shadow>
+            </Label>
+
+            <Border StrokeShape="RoundRectangle 10"
+                    BackgroundColor="White"
+                    Padding="0"
+                    HeightRequest="40">
+                <Border.Stroke>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                        <GradientStop Color="#8338EC" Offset="0.0" />
+                        <GradientStop Color="#06FFA5" Offset="1.0" />
+                    </LinearGradientBrush>
+                </Border.Stroke>
+                <Border.Shadow>
+                    <Shadow Brush="#8338EC"
+                            Offset="0,2"
+                            Radius="4"
+                            Opacity="0.1" />
+                </Border.Shadow>
+                <Entry x:Name="NameEntry"
+                       Placeholder="Product Name"
+                       Margin="10,0"
+                       TextColor="#333"
+                       BackgroundColor="Transparent"/>
+            </Border>
+
+            <Border StrokeShape="RoundRectangle 10"
+                    BackgroundColor="White"
+                    Padding="0"
+                    HeightRequest="40">
+                <Border.Stroke>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                        <GradientStop Color="#8338EC" Offset="0.0" />
+                        <GradientStop Color="#06FFA5" Offset="1.0" />
+                    </LinearGradientBrush>
+                </Border.Stroke>
+                <Border.Shadow>
+                    <Shadow Brush="#8338EC"
+                            Offset="0,2"
+                            Radius="4"
+                            Opacity="0.1" />
+                </Border.Shadow>
+                <Entry x:Name="PriceEntry"
+                       Placeholder="Price"
+                       Keyboard="Numeric"
+                       Margin="10,0"
+                       TextColor="#333"
+                       BackgroundColor="Transparent"/>
+            </Border>
+
+            <Border StrokeShape="RoundRectangle 10"
+                    BackgroundColor="White"
+                    Padding="0"
+                    HeightRequest="40">
+                <Border.Stroke>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                        <GradientStop Color="#8338EC" Offset="0.0" />
+                        <GradientStop Color="#06FFA5" Offset="1.0" />
+                    </LinearGradientBrush>
+                </Border.Stroke>
+                <Border.Shadow>
+                    <Shadow Brush="#8338EC"
+                            Offset="0,2"
+                            Radius="4"
+                            Opacity="0.1" />
+                </Border.Shadow>
+                <Entry x:Name="StockEntry"
+                       Placeholder="Stock"
+                       Keyboard="Numeric"
+                       Margin="10,0"
+                       TextColor="#333"
+                       BackgroundColor="Transparent"/>
+            </Border>
+
+            <Border StrokeShape="RoundRectangle 10"
+                    BackgroundColor="White"
+                    Padding="0"
+                    HeightRequest="40">
+                <Border.Stroke>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                        <GradientStop Color="#8338EC" Offset="0.0" />
+                        <GradientStop Color="#06FFA5" Offset="1.0" />
+                    </LinearGradientBrush>
+                </Border.Stroke>
+                <Border.Shadow>
+                    <Shadow Brush="#8338EC"
+                            Offset="0,2"
+                            Radius="4"
+                            Opacity="0.1" />
+                </Border.Shadow>
+                <Picker IsVisible="True"
+                        ItemsSource="{Binding categoryNames}"
+                        FontSize="16"
+                        HorizontalOptions="Fill"
+                        TextColor="#333"
+                        Title="Select Category"
+                        TitleColor="#888"
+                        Margin="10,0"
+                        BackgroundColor="Transparent"
+                        x:Name="picker"/>
+            </Border>
+
+            <Image x:Name="PreviewImage" HeightRequest="120" Aspect="AspectFill" />
+
+            <Border StrokeShape="RoundRectangle 10"
+                    HeightRequest="40"
+                    WidthRequest="200"
+                    HorizontalOptions="Center">
+                <Border.Stroke>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                        <GradientStop Color="#8338EC" Offset="0.0" />
+                        <GradientStop Color="#06FFA5" Offset="1.0" />
+                    </LinearGradientBrush>
+                </Border.Stroke>
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#E0FFF5" Offset="0.0" />
+                        <GradientStop Color="#F0E6FF" Offset="1.0" />
+                    </LinearGradientBrush>
+                </Border.Background>
+                <Border.Shadow>
+                    <Shadow Brush="#8338EC"
+                            Offset="0,2"
+                            Radius="6"
+                            Opacity="0.25" />
+                </Border.Shadow>
+                <Button Text="Take Photo"
+                        TextColor="#333"
+                        BackgroundColor="Transparent"
+                        Clicked="OnTakePhotoClicked"
+                        />
+            </Border>
+
+
+            <HorizontalStackLayout Spacing="10" HorizontalOptions="Center">
+                <!-- Cancel Button with border style -->
+                <Border StrokeShape="RoundRectangle 10"
+                        HeightRequest="40"
+                        WidthRequest="100">
+                    <Border.Stroke>
+                        <SolidColorBrush Color="#CCCCCC" />
+                    </Border.Stroke>
+                    <Border.Background>
+                        <SolidColorBrush Color="LightGray" />
+                    </Border.Background>
+                    <Border.Shadow>
+                        <Shadow Brush="Black"
+                                Offset="0,2"
+                                Radius="6"
+                                Opacity="0.25" />
+                    </Border.Shadow>
+                    <Button Text="Cancel"
+                            TextColor="Black"
+                            BackgroundColor="Transparent"
+                            Clicked="OnCancelClicked" />
+                </Border>
+
+                <!-- OK Button with gradient and shadow -->
+                <Border StrokeShape="RoundRectangle 10"
+                        HeightRequest="40"
+                        WidthRequest="100">
+                    <Border.Stroke>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                            <GradientStop Color="#06FFA5" Offset="0.0" />
+                            <GradientStop Color="#8338EC" Offset="1.0" />
+                        </LinearGradientBrush>
+                    </Border.Stroke>
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                            <GradientStop Color="#E0FFF5" Offset="0.0" />
+                            <GradientStop Color="#F0E6FF" Offset="1.0" />
+                        </LinearGradientBrush>
+                    </Border.Background>
+                    <Border.Shadow>
+                        <Shadow Brush="#8338EC"
+                                Offset="0,2"
+                                Radius="6"
+                                Opacity="0.25" />
+                    </Border.Shadow>
+                    <Button Text="OK"
+                            TextColor="#333"
+                            BackgroundColor="Transparent"
+                            Clicked="OnOkClicked"
+                            />
+                </Border>
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+    </Border>
+</toolkit:Popup>
